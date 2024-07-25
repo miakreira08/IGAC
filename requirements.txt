@@ -1,9 +1,9 @@
 streamlit
-pandas as pd
-numpy as np
-matplotlib.pyplot as plt
-geopandas as gpd
-contextily as ctx
+pandas
+numpy
+matplotlib.pyplot
+geopandas
+contextily
 folium
 shapely.geometry
 Polygon
