@@ -7,15 +7,9 @@ contextily
 folium
 shapely
 Polygon
-io
-base64
-BytesIO
 scipy
-chi2_contingency
 seaborn
 plotly
 prince
 adjustText
-adjust_text
 FPDF
-fpdf
