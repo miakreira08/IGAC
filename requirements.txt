@@ -14,7 +14,7 @@ scipy.stats
 chi2_contingency
 seaborn
 plotly.express
-import prince
+prince
 adjustText
 adjust_text
 FPDF
