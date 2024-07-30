@@ -13,6 +13,7 @@ from scipy.stats import chi2_contingency
 import seaborn as sns
 import requests
 import zipfile
+from shapely import wkt
 
 st.title('Caracterización según indicador de dinamica inmobiliaria')
 
