@@ -10,6 +10,8 @@ from io import BytesIO
 import base64
 from scipy.stats import chi2_contingency
 import seaborn as sns
+import requests
+import zipfile
 
 st.title('Caracterización según indicador de dinamica inmobiliaria')
 
