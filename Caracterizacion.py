@@ -32,8 +32,8 @@ poblacion['ZONA'] = poblacion['ZONA'].replace(mapping)
 df=poblacion.pivot_table(index=['DIVIPOLA', 'ANO'], columns='ZONA', values='Total_poblacion').reset_index()
 df['tasa_rural']=df['RURAL']/df['Total']
 base=base.merge(df[['DIVIPOLA','tasa_rural']],how='left',on=['DIVIPOLA'])
-download_url='https://drive.google.com/file/d/1Wc6r7F_PfxiT0y3ZTRqOAfAhNBip_FBy/view?usp=drive_link'
-shapefile_path="C:/Users/1016111808/Downloads/MGN_POLITICO/MGN_MPIO_POLITICO.shp"
+download_url='https://drive.google.com/file/d/18Umlo1bmjezbi3XHOWednbaq5i_EUacV/view?usp=sharing'
+#shapefile_path="C:/Users/1016111808/Downloads/MGN_POLITICO/MGN_MPIO_POLITICO.shp"
 response = requests.get(download_url)
 response.raise_for_status() 
 with zipfile.ZipFile(io.BytesIO(response.content)) as z:
