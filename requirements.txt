@@ -13,3 +13,4 @@ plotly
 prince
 adjustText
 FPDF
+openpyxl
