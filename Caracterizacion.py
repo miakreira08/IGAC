@@ -32,23 +32,30 @@ poblacion['ZONA'] = poblacion['ZONA'].replace(mapping)
 df=poblacion.pivot_table(index=['DIVIPOLA', 'ANO'], columns='ZONA', values='Total_poblacion').reset_index()
 df['tasa_rural']=df['RURAL']/df['Total']
 base=base.merge(df[['DIVIPOLA','tasa_rural']],how='left',on=['DIVIPOLA'])
-file_id = '1H4WgaGfAig2z_mP7g6q0g-btOXWG9nZx'
-download_url = f'https://drive.google.com/uc?export=download&id={file_id}'
-#shapefile_path="C:/Users/1016111808/Downloads/MGN_POLITICO/MGN_MPIO_POLITICO.shp"
-response = requests.get(download_url)
-response.raise_for_status() 
-with zipfile.ZipFile(BytesIO(response.content)) as z:
-    # Listar archivos en el ZIP
-    files = z.namelist()
-    st.write("Archivos en el ZIP:", files)
-    
-    # Extraer el archivo .shp (o cualquier archivo específico)
-    shapefile_path = [file for file in files if file.endswith('.shp')][0]
-    with z.open(shapefile_path) as shp:
-        municipio = gpd.read_file(shp)
-        st.write("DataFrame del shapefile:")
-        st.write(gdf.head())
-    
+
+uploaded_file = st.file_uploader("Elige un archivo ZIP que contenga el shapefile", type="zip")
+
+if uploaded_file is not None:
+    # Crear un directorio temporal para extraer el contenido del ZIP
+    with tempfile.TemporaryDirectory() as tmpdirname:
+        with zipfile.ZipFile(uploaded_file, 'r') as zip_ref:
+            zip_ref.extractall(tmpdirname)
+            
+            # Buscar el archivo .shp en el directorio temporal
+            shp_files = [f for f in os.listdir(tmpdirname) if f.endswith('.shp')]
+            if shp_files:
+                shp_file = shp_files[0]
+                shapefile_path = os.path.join(tmpdirname, shp_file)
+
+                # Leer el shapefile usando geopandas
+                gdf = gpd.read_file(shapefile_path)
+                
+                # Mostrar el DataFrame
+                st.write("Datos del shapefile:")
+                st.write(gdf.head())
+            else:
+                st.error("No se encontró un archivo .shp en el ZIP.")
+                
 municipio['MPIO_CDPMP']=municipio['MPIO_CDPMP'].astype('int')
 municipio['DIVIPOLA']=municipio['MPIO_CDPMP']
 base=base.merge(municipio[['DIVIPOLA','geometry','MPIO_CNMBR']],how='left',on='DIVIPOLA')
