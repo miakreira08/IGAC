@@ -29,8 +29,20 @@ poblacion['ZONA'] = poblacion['ZONA'].replace(mapping)
 df=poblacion.pivot_table(index=['DIVIPOLA', 'ANO'], columns='ZONA', values='Total_poblacion').reset_index()
 df['tasa_rural']=df['RURAL']/df['Total']
 base=base.merge(df[['DIVIPOLA','tasa_rural']],how='left',on=['DIVIPOLA'])
+download_url='https://drive.google.com/file/d/1Wc6r7F_PfxiT0y3ZTRqOAfAhNBip_FBy/view?usp=drive_link'
 shapefile_path="C:/Users/1016111808/Downloads/MGN_POLITICO/MGN_MPIO_POLITICO.shp"
-municipio=gpd.read_file(shapefile_path)
+response = requests.get(download_url)
+response.raise_for_status() 
+with zipfile.ZipFile(io.BytesIO(response.content)) as z:
+    # Lista de archivos en el zip
+    shapefile_name = [name for name in z.namelist() if name.endswith('.shp')][0]
+    
+    # Extraer todos los archivos del zip
+    z.extractall()
+
+    # Leer el shapefile extraído
+    municipio = gpd.read_file(shapefile_name)
+    
 municipio['MPIO_CDPMP']=municipio['MPIO_CDPMP'].astype('int')
 municipio['DIVIPOLA']=municipio['MPIO_CDPMP']
 base=base.merge(municipio[['DIVIPOLA','geometry','MPIO_CNMBR']],how='left',on='DIVIPOLA')
