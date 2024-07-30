@@ -15,7 +15,7 @@ st.title('Caracterización según indicador de dinamica inmobiliaria')
 
 st.title("Dimensión Social - Tasa ruralidad")
 st.write(" La tasa rural se calcula teniendo en cuenta la proyección poblacional calculada por el DANE para el año 2022")
-base=pd.read_excel('https://github.com/miakreira08/IGAC/blob/main/indicador_general.xlsx')
+base=pd.read_excel('https://raw.githubusercontent.com/miakreira08/IGAC/main/indicador_general.xlsx')
 poblacion=pd.read_excel("C:/Users/1016111808/Downloads/poblacion_2.xlsx")
 poblacion=poblacion[['COD_DPTO','DEPARTAMENTO','COD_DPTO-MPIO','MUNICIPIO','AÑO','ÁREA GEOGRÁFICA','Total']]
 poblacion=poblacion.rename(columns={'COD_DPTO-MPIO':'DIVIPOLA','AÑO':'ANO','ÁREA GEOGRÁFICA':'ZONA','Total':'Total_poblacion'})
