@@ -36,7 +36,8 @@ base=pd.read_excel("https://raw.githubusercontent.com/miakreira08/IGAC/main/base
 bins = [0, 0.5, 0.8, 1]
 labels = ['Menor a 50%', 'Entre 50% y 80%', 'Mayor al 80%']
 base['categoria_tasa'] = pd.cut(base['tasa_rural'], bins=bins, labels=labels, right=False)
-gdf=gpd.GeoDataFrame(base)
+gdf=gpd.GeoDataFrame(base,geometry='geometry')
+gdf.set_crs("EPSG:4326", inplace=True)
 
 municipios_unicos = sorted(gdf['MPIO_CNMBR'].unique())
 municipio_seleccionado = st.selectbox('Selecciona un municipio:',
