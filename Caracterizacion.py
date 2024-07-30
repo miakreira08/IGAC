@@ -6,6 +6,7 @@ import geopandas as gpd
 import contextily as ctx
 import folium
 from shapely.geometry import Polygon
+import io 
 from io import BytesIO
 import base64
 from scipy.stats import chi2_contingency
