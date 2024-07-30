@@ -41,6 +41,7 @@ if 'geometry' not in base.columns:
     st.error("La columna 'geometry' no se encuentra en el DataFrame 'base'.")
 else:
     # Convertir el DataFrame base a un GeoDataFrame
+    base['geometry'] = base['geometry'].apply(wkt.loads)
     gdf = gpd.GeoDataFrame(base, geometry='geometry')
 
     # Establecer el CRS si no está ya establecido
