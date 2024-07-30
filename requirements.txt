@@ -16,5 +16,4 @@ FPDF
 openpyxl
 pyogrio
 fiona
-zipfile
 requests
